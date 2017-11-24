@@ -1,0 +1,60 @@
+<?php
+
+namespace ConsultorioBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Medicos
+ *
+ * @ORM\Table(name="MEDICOS")
+ * @ORM\Entity(repositoryClass="ConsultorioBundle\Repository\MedicosRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Medicos
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="ID", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NOMBRE", type="string", length=255)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="APELLIDO", type="string", length=255)
+     */
+    private $apellido;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ESPECIALIDAD", type="string", length=255)
+     */
+    private $especialidad;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="ESTADO", type="boolean")
+     */
+    private $isActivo;
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setPrePersistData() {
+
+        $this->isActivo = true;
+    }
+}

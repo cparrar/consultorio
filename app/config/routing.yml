@@ -1,3 +1,6 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+consultorio:
+    resource: "@ConsultorioBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
