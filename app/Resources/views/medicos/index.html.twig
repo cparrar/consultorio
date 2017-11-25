@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista de Medicos</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for medico in medicos %}
+            <tr>
+                <td><a href="{{ path('medicos_show', { 'id': medico.id }) }}">{{ medico.id }}</a></td>
+                <td>{{ medico.nombre }}</td>
+                <td>{{ medico.apellido }}</td>
+                <td>{% if medico.isActivo %}ACTIVO{% else %}INACTIVO{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('medicos_show', { 'id': medico.id }) }}">Mostrar</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('medicos_edit', { 'id': medico.id }) }}">Editar</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('medicos_new') }}">Crear un nuevo Medico</a>
+        </li>
+    </ul>
+{% endblock %}

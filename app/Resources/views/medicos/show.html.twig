@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Medico</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ medico.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ medico.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ medico.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{% if medico.isActivo %}ACTIVO{% else %}INACTIVO{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('medicos_index') }}">Regresar</a>
+        </li>
+        <li>
+            <a href="{{ path('medicos_edit', { 'id': medico.id }) }}">Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Borrar">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

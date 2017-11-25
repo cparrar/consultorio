@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Paciente</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ paciente.id }}</td>
+            </tr>
+            <tr>
+                <th>Documento</th>
+                <td>{{ paciente.documento }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ paciente.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ paciente.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Nacimientoat</th>
+                <td>{% if paciente.nacimientoAt %}{{ paciente.nacimientoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ paciente.email }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ paciente.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ paciente.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Creadoat</th>
+                <td>{% if paciente.creadoAt %}{{ paciente.creadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isactivo</th>
+                <td>{% if paciente.isActivo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('paciente_index') }}">Regresar</a>
+        </li>
+        <li>
+            <a href="{{ path('paciente_edit', { 'id': paciente.id }) }}">Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Borrar">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

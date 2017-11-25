@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Listado de Citas</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fechaat</th>
+                <th>Precio</th>
+                <th>Estado</th>
+                <th>Fecha Creación</th>
+                <th>Fecha de Actualización</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cita in citas %}
+            <tr>
+                <td><a href="{{ path('citas_show', { 'id': cita.id }) }}">{{ cita.id }}</a></td>
+                <td>{% if cita.fechaAt %}{{ cita.fechaAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ cita.precio }}</td>
+                <td>{% if cita.isActivo %}ACTIVO{% else %}INACTIVO{% endif %}</td>
+                <td>{% if cita.creadoAt %}{{ cita.creadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if cita.actualizadoAt %}{{ cita.actualizadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('citas_show', { 'id': cita.id }) }}">Mostrar</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('citas_edit', { 'id': cita.id }) }}">Editar</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('citas_new') }}">Crear Nueva Cita</a>
+        </li>
+    </ul>
+{% endblock %}

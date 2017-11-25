@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista de Consultorios</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for consultorio in consultorios %}
+            <tr>
+                <td><a href="{{ path('consultorios_show', { 'id': consultorio.id }) }}">{{ consultorio.id }}</a></td>
+                <td>{{ consultorio.nombre }}</td>
+                <td>{% if consultorio.isActivo %}ACTIVO{% else %}INACTIVO{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('consultorios_show', { 'id': consultorio.id }) }}">Mostrar</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('consultorios_edit', { 'id': consultorio.id }) }}">Editar</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('consultorios_new') }}">Crear Nuevo Consultorio</a>
+        </li>
+    </ul>
+{% endblock %}

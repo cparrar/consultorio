@@ -72,7 +72,7 @@ class Citas
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="FECHA_ACTUALIZADO", type="datetime")
+     * @ORM\Column(name="FECHA_ACTUALIZADO", type="datetime", nullable=true)
      */
     private $actualizadoAt;
 
@@ -89,6 +89,7 @@ class Citas
     public function setPrePersistData() {
         $this->isActivo = true;
         $this->creadoAt = new \DateTime();
+        $this->isAsistencia = true;
     }
 
     /**

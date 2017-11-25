@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Cita</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cita.id }}</td>
+            </tr>
+            <tr>
+                <th>Fechaat</th>
+                <td>{% if cita.fechaAt %}{{ cita.fechaAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ cita.precio }}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{% if cita.isActivo %}ACTIVO{% else %}INACTIVO{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Fecha de Creación</th>
+                <td>{% if cita.creadoAt %}{{ cita.creadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Fecha de Actualización</th>
+                <td>{% if cita.actualizadoAt %}{{ cita.actualizadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('citas_index') }}">Regresar</a>
+        </li>
+        <li>
+            <a href="{{ path('citas_edit', { 'id': cita.id }) }}">Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Borrar">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

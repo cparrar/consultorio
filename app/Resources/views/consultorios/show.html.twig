@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Consultorio</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ consultorio.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ consultorio.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{% if consultorio.isActivo %}ACTIVO{% else %}INACTIVO{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('consultorios_index') }}">Regresar</a>
+        </li>
+        <li>
+            <a href="{{ path('consultorios_edit', { 'id': consultorio.id }) }}">Editar</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Borrar">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
