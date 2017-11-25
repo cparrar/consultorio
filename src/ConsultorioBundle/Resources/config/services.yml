@@ -5,3 +5,6 @@ services:
     app.log:
         class: ConsultorioBundle\Services\ServiceLog
         arguments: ["@filesystem"]
+    app.consultorios:
+        class: ConsultorioBundle\Services\ServicesConsultorios
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

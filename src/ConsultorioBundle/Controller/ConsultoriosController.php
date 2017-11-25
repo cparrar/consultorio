@@ -14,17 +14,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class ConsultoriosController extends Controller
 {
+
     /**
      * Lists all consultorio entities.
      *
      * @Route("/", name="consultorios_index")
      * @Method("GET")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $consultorios = $em->getRepository('ConsultorioBundle:Consultorios')->findAll();
+        $consultorios = $this->get('app.consultorios')->getIndex();
 
         return $this->render('consultorios/index.html.twig', array(
             'consultorios' => $consultorios,
@@ -46,6 +46,7 @@ class ConsultoriosController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.consultorios')->getNew($consultorio);
             $em = $this->getDoctrine()->getManager();
             $em->persist($consultorio);
             $em->flush();
@@ -72,7 +73,7 @@ class ConsultoriosController extends Controller
         $deleteForm = $this->createDeleteForm($consultorio);
 
         return $this->render('consultorios/show.html.twig', array(
-            'consultorio' => $consultorio,
+            'consultorio' => $this->get('app.consultorios')->getShow($consultorio),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -94,6 +95,7 @@ class ConsultoriosController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->get('app.consultorios')->getEdit($consultorio);
 
             return $this->redirectToRoute('consultorios_edit', array('id' => $consultorio->getId()));
         }
@@ -120,6 +122,7 @@ class ConsultoriosController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.consultorios')->getDelete($consultorio);
             $em = $this->getDoctrine()->getManager();
             $em->remove($consultorio);
             $em->flush();

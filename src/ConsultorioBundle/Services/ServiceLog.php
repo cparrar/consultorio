@@ -40,9 +40,9 @@
         public function setLog($string = null) {
 
             if($this->filesystem->exists($this->file) != true) {
-                throw new NotFoundHttpException('El archivo de Log No Existe');
+                $this->filesystem->touch($this->file);
             }
-            $this->filesystem->dumpFile($this->file, sprintf("%s\n", $string));
+            $this->filesystem->appendToFile($this->file, sprintf("%s\n", $string));
             return null;
         }
     }
