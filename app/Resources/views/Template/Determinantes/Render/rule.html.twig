@@ -1,0 +1,41 @@
+<style>
+    .det-col {
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        text-align: center !important;
+    }
+    .col {
+        font-weight: bold !important;
+    }
+</style>
+{% if det.getType < 4 %}
+    <div class="highlight">
+        <h3>{{ det.getRule() }}</h3>
+        <h3>{{ det.getRuleExplanation() }}</h3>
+    </div>
+{% else %}
+    <div class="container">
+        <div class="row">
+                {% for key, value in det.getRuleExplanation() %}
+                    {% if key == 0 %}
+                        <div class="col">({{ value.pivot }}) *</div>
+                        <div class="col det-col">{% include 'Template/Determinantes/Render/matrix.html.twig' with { 'array' : value.adj.array } only %}</div>
+                    {% elseif key == 1 %}
+                        <div class="col"> - ({{ value.pivot }}) *</div>
+                        <div class="col det-col">{% include 'Template/Determinantes/Render/matrix.html.twig' with { 'array' : value.adj.array } only %}</div>
+                    {% else %}
+                        {% if key % 2 == 0 %}
+                            <div class="col"> + ({{ value.pivot }}) *</div>
+                            <div class="col det-col">{% include 'Template/Determinantes/Render/matrix.html.twig' with { 'array' : value.adj.array } only %}</div>
+                        {% else %}
+                            <div class="col"> - ({{ value.pivot }}) *</div>
+                            <div class="col det-col">{% include 'Template/Determinantes/Render/matrix.html.twig' with { 'array' : value.adj.array } only %}</div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+        </div>
+    </div>
+    <br><br>
+    <h4>{{ det.getRule().get('explaned') }}</h4>
+    <h4>{{ det.getRule().get('rule') }}</h4>
+{% endif %}

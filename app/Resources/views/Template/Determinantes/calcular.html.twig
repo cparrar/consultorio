@@ -1,0 +1,5 @@
+<br><br>
+<h1>Proceso determinante {{ det.getType }}x{{ det.getType }}</h1>
+<br><br>
+{% include 'Template/Determinantes/Render/rule.html.twig' with { 'det' :  det } only %}
+{% include 'Template/Determinantes/Render/result.html.twig' with { 'det' :  det } only %}

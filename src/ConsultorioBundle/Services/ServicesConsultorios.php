@@ -6,11 +6,29 @@
     use Doctrine\ORM\EntityManager;
     use Symfony\Component\DependencyInjection\ContainerInterface;
 
+    /**
+     * Class ServicesConsultorios
+     *
+     * @package ConsultorioBundle\Services
+     */
     class ServicesConsultorios {
 
+        /**
+         * @var EntityManager
+         */
         private $entityManager;
+
+        /**
+         * @var ContainerInterface
+         */
         private $container;
 
+        /**
+         * ServicesConsultorios constructor.
+         *
+         * @param EntityManager $entityManager
+         * @param ContainerInterface $container
+         */
         function __construct(EntityManager $entityManager, ContainerInterface $container) {
 
             $this->entityManager = $entityManager;

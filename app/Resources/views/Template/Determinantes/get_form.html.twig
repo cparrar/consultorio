@@ -1,0 +1,39 @@
+    {% if det < 8 %}
+        {% set total = det -1 %}
+        <div class="row">
+            <div class="col-sm-12">
+                <br><br>
+                <h1>matriz {{ det }}x{{ det }}</h1>
+            </div>
+            <div class="col-sm-12">
+                <form action="javascript:;" method="post" id="form-calcular">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            {% for index in 0..total %}
+                                <th>Columna {{ loop.index }}</th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in 0..total %}
+                            <tr>
+                                <td><strong>Fila {{ loop.index }}</strong></td>
+                                {% for j in 0..total %}
+                                    <td><input type="text" name="detForm[{{ i }}][{{ j }}]" id="det_{{ i }}_{{ j }}"></td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="text-center  m-t-20">
+                        <button type="submit" class="btn btn-embossed btn-primary send-calcular">Calcular</button>
+                        <button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <h2>No es posible procesar su solicitud</h2>
+    {% endif %}

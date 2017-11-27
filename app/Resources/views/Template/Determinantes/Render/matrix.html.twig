@@ -1,0 +1,9 @@
+<table class="table">
+    {% for row, matriz in array %}
+        <tr>
+            {% for data in matriz %}
+                <td>{{ data }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

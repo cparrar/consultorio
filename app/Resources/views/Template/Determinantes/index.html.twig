@@ -1,0 +1,96 @@
+    {%- extends 'Template/base.html.twig' -%}
+
+    {%- block header -%}
+        <div class="header">
+            <h2><strong>Calculo</strong> Determinantes</h2>
+            <div class="breadcrumb-wrapper">
+                <ol class="breadcrumb">
+                    <li><a href="javascript:;">Determinantes</a></li>
+                    <li class="active">Calcular</li>
+                </ol>
+            </div>
+        </div>
+    {%- endblock header -%}
+
+    {%- block body -%}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default no-bd">
+                    <div class="panel-header bg-dark">
+                        <h2 class="panel-title"><strong>Selección</strong> de Calculo</h2>
+                    </div>
+                    <div class="panel-body bg-white">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Seleccione el Determinante Cuadrado</label>
+                                            <div class="option-group">
+                                                <select id="cant-det" name="cant-det" required>
+                                                    <option value="">Seleccione una Opción</option>
+                                                    <option value="2">Determinante - 2x2</option>
+                                                    <option value="3">Determinante - 3x3</option>
+                                                    <option value="4">Determinante - 4x4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="load-det"></div>
+
+                            </div>
+
+                            <div class="col-sm-12">
+
+                                <div class="row" id="det-result"></div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%- endblock body -%}
+
+    {%- block js -%}
+        {{ parent() }}
+        <script src="{{ asset('assets/global/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+        <script src="{{ asset('assets/global/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+        <script>
+            jQuery(document).ready(function() {
+                jQuery("#cant-det").change(function() {
+                    jQuery("#cant-det option:selected").each(function() {
+                        var info = jQuery(this).val();
+                        if(info != "") {
+                            jQuery.ajax({
+                                url : "{{ path('det_form') }}",
+                                type : "POST",
+                                dataType: "html",
+                                data : { 'det' : info },
+                                success : function(result) {
+                                    jQuery("#load-det").html(result);
+                                }
+                            });
+                        }
+                    });
+                });
+
+                jQuery(document).on('click', ".send-calcular", function(event) {
+                    event.preventDefault();
+                    jQuery.ajax({
+                        url : "{{ path('det_calcular') }}",
+                        type : "POST",
+                        dataType : "html",
+                        data : jQuery("#form-calcular").serialize(),
+                        success : function(result) {
+                            jQuery("#det-result").html(result);
+                        }
+                    });
+                });
+            });
+        </script>
+    {%- endblock js -%}
