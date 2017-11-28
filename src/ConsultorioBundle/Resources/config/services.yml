@@ -8,3 +8,6 @@ services:
     app.consultorios:
         class: ConsultorioBundle\Services\ServicesConsultorios
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+    app.especialidades:
+        class: ConsultorioBundle\Services\ServicesEspecialidades
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

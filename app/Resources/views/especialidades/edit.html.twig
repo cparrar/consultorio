@@ -1,21 +1,36 @@
-{% extends 'base.html.twig' %}
+{% extends 'Template/base.html.twig' %}
 
 {% block body %}
-    <h1>Editar Especialidades</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Editar" />
-    {{ form_end(edit_form) }}
+    <div class="col-md-12">
+        <div class="panel panel-default no-bd">
+            <div class="panel-header bg-dark">
+                <h2 class="panel-title"><strong>Editar</strong> Especialidad: {{ especialidade.nombre|title }}</h2>
+            </div>
+            <div class="panel-body bg-white">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
 
-    <ul>
-        <li>
-            <a href="{{ path('especialidades_index') }}">Regresar</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Borrar">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                {{ form_start(edit_form) }}
+                                {{ form_widget(edit_form) }}
+                                <br><br>
+                                <input class="btn btn-embossed btn-primary" type="submit" value="Editar Especialidad" />
+                                {{ form_end(edit_form) }}
+
+                            </div>
+                        </div>
+
+                        {#<div class="text-center  m-t-20">#}
+                        {#<button type="submit" class="btn btn-embossed btn-primary">Sign Up</button>#}
+                        {#<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>#}
+                        {#</div>#}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

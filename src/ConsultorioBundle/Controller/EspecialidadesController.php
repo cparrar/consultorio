@@ -22,9 +22,7 @@ class EspecialidadesController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $especialidades = $em->getRepository('ConsultorioBundle:Especialidades')->findAll();
+        $especialidades = $this->get('app.especialidades')->getIndex();
 
         return $this->render('especialidades/index.html.twig', array(
             'especialidades' => $especialidades,
@@ -42,13 +40,18 @@ class EspecialidadesController extends Controller
     public function newAction(Request $request)
     {
         $especialidade = new Especialidades();
-        $form = $this->createForm('ConsultorioBundle\Form\EspecialidadesType', $especialidade);
+        $form = $this->createForm('ConsultorioBundle\Form\EspecialidadesType', $especialidade, [
+            'action' => $this->generateUrl('especialidades_new'),
+            'method' => 'POST'
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($especialidade);
             $em->flush();
+
+            $this->get('app.especialidades')->getNew($especialidade);
 
             return $this->redirectToRoute('especialidades_show', array('id' => $especialidade->getId()));
         }
@@ -70,6 +73,7 @@ class EspecialidadesController extends Controller
     public function showAction(Especialidades $especialidade)
     {
         $deleteForm = $this->createDeleteForm($especialidade);
+        $this->get('app.especialidades')->getShow($especialidade);
 
         return $this->render('especialidades/show.html.twig', array(
             'especialidade' => $especialidade,
@@ -94,6 +98,8 @@ class EspecialidadesController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->get('app.especialidades')->getEdit($especialidade);
 
             return $this->redirectToRoute('especialidades_edit', array('id' => $especialidade->getId()));
         }
@@ -120,6 +126,7 @@ class EspecialidadesController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.especialidades')->getDelete($especialidade);
             $em = $this->getDoctrine()->getManager();
             $em->remove($especialidade);
             $em->flush();

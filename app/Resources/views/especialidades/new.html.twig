@@ -1,16 +1,38 @@
-{% extends 'base.html.twig' %}
+{% extends 'Template/base.html.twig' %}
 
 {% block body %}
-    <h1>Crear Nueva Especialidad</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Crear" />
-    {{ form_end(form) }}
+    <div class="col-md-12">
+        <div class="panel panel-default no-bd">
+            <div class="panel-header bg-dark">
+                <h2 class="panel-title"><strong>Nueva</strong> Especialidad</h2>
+            </div>
+            <div class="panel-body bg-white">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
 
-    <ul>
-        <li>
-            <a href="{{ path('especialidades_index') }}">Regresar</a>
-        </li>
-    </ul>
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    {{ form_start(form) }}
+                                    {{ form_widget(form) }}
+                                    <br><br>
+                                    <input class="btn btn-embossed btn-primary" type="submit" value="Crear Especialidad" />
+                                    {{ form_end(form) }}
+
+                                </div>
+                            </div>
+
+                            {#<div class="text-center  m-t-20">#}
+                            {#<button type="submit" class="btn btn-embossed btn-primary">Sign Up</button>#}
+                            {#<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>#}
+                            {#</div>#}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
+

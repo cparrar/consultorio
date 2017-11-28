@@ -3,8 +3,10 @@
 namespace ConsultorioBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ConsultoriosType extends AbstractType
 {
@@ -13,7 +15,12 @@ class ConsultoriosType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nombre');
+        $builder->add('nombre', TextType::class, [
+            'label' => 'Nombre del Consultorio',
+            'constraints' => [
+                new NotBlank(['message' => 'Ingresar Nombre y/o número del consultorio'])
+            ]
+        ]);
     }
     
     /**

@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  * Medicos
  *
  * @ORM\Table(name="MEDICOS", indexes={
- *     @ORM\Index(name="IDX_MEDICOS_COLUMN_CONSULTORIO", columns={"CONSULTORIO"}),
  *     @ORM\Index(name="IDX_MEDICOS_COLUMN_ESPECIALIDAD", columns={"ESPECIALIDAD"})
  * })
  * @ORM\Entity(repositoryClass="ConsultorioBundle\Repository\MedicosRepository")
@@ -51,7 +50,7 @@ class Medicos
      * @var \ConsultorioBundle\Entity\Consultorios
      *
      * @ORM\ManyToOne(targetEntity="ConsultorioBundle\Entity\Consultorios")
-     * @ORM\JoinColumn(name="CONSULTORIO", referencedColumnName="ID")
+     * @ORM\JoinColumn(name="CONSULTORIO", referencedColumnName="ID", nullable=true)
      */
     private $consultorio;
 

@@ -1,10 +1,24 @@
 <ul class="nav nav-sidebar">
     {#<li class="{{ global.request.attributes.get('_route') == 'inicio' ? 'nav-parent nav-active active' }}"><a href="{{ path('inicio') }}"><i class="icon-home"></i><span>Inicio</span></a></li>#}
-    <li class="{{ app.request.attributes.get('_route') in ['consultorios_index', 'consultorios_new'] ? 'nav-parent nav-active active' : 'nav-parent' }}">
+    <li class="{{ app.request.attributes.get('_route') in ['consultorios_index', 'consultorios_new', 'consultorios_edit', 'consultorios_show'] ? 'nav-parent nav-active active' : 'nav-parent' }}">
         <a href="javascript:;"><i class="icon-puzzle"></i><span>Consultorios</span> <span class="fa arrow"></span></a>
         <ul class="children collapse">
             <li class="{{ app.request.attributes.get('_route') == 'consultorios_index' ? 'active' }}"><a href="{{ path('consultorios_index') }}"> Listado</a></li>
             <li class="{{ app.request.attributes.get('_route') == 'consultorios_new' ? 'active' }}"><a href="{{ path('consultorios_new') }}"> Crear Consultorio</a></li>
+        </ul>
+    </li>
+    <li class="{{ app.request.attributes.get('_route') in ['especialidades_index', 'especialidades_show', 'especialidades_new', 'especialidades_edit'] ? 'nav-parent nav-active active' : 'nav-parent' }}">
+        <a href="javascript:;"><i class="icon-puzzle"></i><span>Especialidades</span> <span class="fa arrow"></span></a>
+        <ul class="children collapse">
+            <li class="{{ app.request.attributes.get('_route') == 'especialidades_index' ? 'active' }}"><a href="{{ path('especialidades_index') }}"> Listado</a></li>
+            <li class="{{ app.request.attributes.get('_route') == 'especialidades_new' ? 'active' }}"><a href="{{ path('especialidades_new') }}"> Crear Especialidad</a></li>
+        </ul>
+    </li>
+    <li class="{{ app.request.attributes.get('_route') in [''] ? 'nav-parent nav-active active' : 'nav-parent' }}">
+        <a href="javascript:;"><i class="icon-puzzle"></i><span>Medicos</span> <span class="fa arrow"></span></a>
+        <ul class="children collapse">
+            <li class="{{ app.request.attributes.get('_route') == 'especialidades_index' ? 'active' }}"><a href="{{ path('especialidades_index') }}"> Listado</a></li>
+            <li class="{{ app.request.attributes.get('_route') == 'especialidades_new' ? 'active' }}"><a href="{{ path('especialidades_new') }}"> Crear Especialidad</a></li>
         </ul>
     </li>
 </ul>

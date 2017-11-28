@@ -42,7 +42,7 @@ class ConsultoriosController extends Controller
     public function newAction(Request $request)
     {
         $consultorio = new Consultorios();
-        $form = $this->createForm('ConsultorioBundle\Form\ConsultoriosType', $consultorio);
+        $form = $this->createForm('ConsultorioBundle\Form\ConsultoriosType', $consultorio, ['method' => 'POST', 'action' => $this->generateUrl('consultorios_new')]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -90,12 +90,15 @@ class ConsultoriosController extends Controller
     public function editAction(Request $request, Consultorios $consultorio)
     {
         $deleteForm = $this->createDeleteForm($consultorio);
-        $editForm = $this->createForm('ConsultorioBundle\Form\ConsultoriosType', $consultorio);
+        $editForm = $this->createForm('ConsultorioBundle\Form\ConsultoriosType', $consultorio, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('consultorios_edit', ['id' => $consultorio->getId()])
+        ]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
             $this->get('app.consultorios')->getEdit($consultorio);
+            $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('consultorios_edit', array('id' => $consultorio->getId()));
         }
