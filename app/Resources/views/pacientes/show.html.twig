@@ -1,64 +1,60 @@
-{% extends 'base.html.twig' %}
+{% extends 'Template/base.html.twig' %}
 
 {% block body %}
-    <h1>Paciente</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ paciente.id }}</td>
-            </tr>
-            <tr>
-                <th>Documento</th>
-                <td>{{ paciente.documento }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ paciente.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Apellido</th>
-                <td>{{ paciente.apellido }}</td>
-            </tr>
-            <tr>
-                <th>Nacimientoat</th>
-                <td>{% if paciente.nacimientoAt %}{{ paciente.nacimientoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ paciente.email }}</td>
-            </tr>
-            <tr>
-                <th>Direccion</th>
-                <td>{{ paciente.direccion }}</td>
-            </tr>
-            <tr>
-                <th>Telefono</th>
-                <td>{{ paciente.telefono }}</td>
-            </tr>
-            <tr>
-                <th>Creadoat</th>
-                <td>{% if paciente.creadoAt %}{{ paciente.creadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Isactivo</th>
-                <td>{% if paciente.isActivo %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="col-md-12">
+        <div class="panel panel-default no-bd">
+            <div class="panel-header bg-dark">
+                <h2 class="panel-title"><strong>Mostrar Paciente</strong>: {{ paciente.nombre|title }} {{ paciente.apellido|title }}</h2>
+            </div>
+            <div class="panel-body bg-white">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form role="form" class="form-validation" novalidate="novalidate">
+                            <div class="row">
+                                <div class="col-sm-12">
 
-    <ul>
-        <li>
-            <a href="{{ path('paciente_index') }}">Regresar</a>
-        </li>
-        <li>
-            <a href="{{ path('paciente_edit', { 'id': paciente.id }) }}">Editar</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Borrar">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Documento</th>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
+                                            <th>Fecha Nacimiento</th>
+                                            <th>Email</th>
+                                            <th>Direccion</th>
+                                            <th>Telefono</th>
+                                            <th>Fecha Creación</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="{{ path('paciente_show', { 'id': paciente.id }) }}">{{ paciente.id }}</a></td>
+                                            <td>{{ paciente.documento }}</td>
+                                            <td>{{ paciente.nombre }}</td>
+                                            <td>{{ paciente.apellido }}</td>
+                                            <td>{% if paciente.nacimientoAt %}{{ paciente.nacimientoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{{ paciente.email }}</td>
+                                            <td>{{ paciente.direccion }}</td>
+                                            <td>{{ paciente.telefono }}</td>
+                                            <td>{% if paciente.creadoAt %}{{ paciente.creadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            {#<div class="text-center  m-t-20">#}
+                            {#<button type="submit" class="btn btn-embossed btn-primary">Sign Up</button>#}
+                            {#<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>#}
+                            {#</div>#}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

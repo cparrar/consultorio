@@ -23,12 +23,8 @@ class PacientesController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $pacientes = $em->getRepository('ConsultorioBundle:Pacientes')->findAll();
-
         return $this->render('pacientes/index.html.twig', array(
-            'pacientes' => $pacientes,
+            'pacientes' => $this->get('app.pacientes')->getIndex(),
         ));
     }
 
@@ -50,6 +46,8 @@ class PacientesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($paciente);
             $em->flush();
+
+            $this->get('app.pacientes')->getNew($paciente);
 
             return $this->redirectToRoute('paciente_show', array('id' => $paciente->getId()));
         }
@@ -73,7 +71,7 @@ class PacientesController extends Controller
         $deleteForm = $this->createDeleteForm($paciente);
 
         return $this->render('pacientes/show.html.twig', array(
-            'paciente' => $paciente,
+            'paciente' => $this->get('app.pacientes')->getShow($paciente),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -95,6 +93,7 @@ class PacientesController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->get('app.pacientes')->getEdit($paciente);
 
             return $this->redirectToRoute('paciente_edit', array('id' => $paciente->getId()));
         }
@@ -121,6 +120,7 @@ class PacientesController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.pacientes')->getDelete($paciente);
             $em = $this->getDoctrine()->getManager();
             $em->remove($paciente);
             $em->flush();
