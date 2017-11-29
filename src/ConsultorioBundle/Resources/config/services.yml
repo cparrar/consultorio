@@ -17,3 +17,6 @@ services:
     app.pacientes:
         class: ConsultorioBundle\Services\ServicesPacientes
         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+    app.citas:
+        class: ConsultorioBundle\Services\ServicesCitas
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

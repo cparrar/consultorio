@@ -1,48 +1,54 @@
-{% extends 'base.html.twig' %}
+{% extends 'Template/base.html.twig' %}
 
 {% block body %}
-    <h1>Cita</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ cita.id }}</td>
-            </tr>
-            <tr>
-                <th>Fechaat</th>
-                <td>{% if cita.fechaAt %}{{ cita.fechaAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Precio</th>
-                <td>{{ cita.precio }}</td>
-            </tr>
-            <tr>
-                <th>Estado</th>
-                <td>{% if cita.isActivo %}ACTIVO{% else %}INACTIVO{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Fecha de Creación</th>
-                <td>{% if cita.creadoAt %}{{ cita.creadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Fecha de Actualización</th>
-                <td>{% if cita.actualizadoAt %}{{ cita.actualizadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="col-md-12">
+        <div class="panel panel-default no-bd">
+            <div class="panel-header bg-dark">
+                <h2 class="panel-title"><strong>Mostrar Cita</strong>: {{ cita.paciente }}</h2>
+            </div>
+            <div class="panel-body bg-white">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form role="form" class="form-validation" novalidate="novalidate">
+                            <div class="row">
+                                <div class="col-sm-12">
 
-    <ul>
-        <li>
-            <a href="{{ path('citas_index') }}">Regresar</a>
-        </li>
-        <li>
-            <a href="{{ path('citas_edit', { 'id': cita.id }) }}">Editar</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Borrar">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Fecha Cita</th>
+                                            <th>Precio</th>
+                                            <th>Paciente</th>
+                                            <th>Medico</th>
+                                            <th>Consultorio</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ cita.id }}</td>
+                                            <td>{% if cita.fechaAt %}{{ cita.fechaAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{{ cita.precio }}</td>
+                                            <td>{{ cita.paciente }}</td>
+                                            <td>{{ cita.medico }}</td>
+                                            <td>{{ cita.consultorio }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            {#<div class="text-center  m-t-20">#}
+                            {#<button type="submit" class="btn btn-embossed btn-primary">Sign Up</button>#}
+                            {#<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>#}
+                            {#</div>#}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

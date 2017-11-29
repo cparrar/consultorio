@@ -22,12 +22,8 @@ class CitasController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $citas = $em->getRepository('ConsultorioBundle:Citas')->findAll();
-
         return $this->render('citas/index.html.twig', array(
-            'citas' => $citas,
+            'citas' => $this->get('app.citas')->getIndex(),
         ));
     }
 
@@ -49,6 +45,8 @@ class CitasController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($cita);
             $em->flush();
+
+            $this->get('app.citas')->getNew($cita);
 
             return $this->redirectToRoute('citas_show', array('id' => $cita->getId()));
         }
@@ -72,7 +70,7 @@ class CitasController extends Controller
         $deleteForm = $this->createDeleteForm($cita);
 
         return $this->render('citas/show.html.twig', array(
-            'cita' => $cita,
+            'cita' => $this->get('app.citas')->getShow($cita),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -89,11 +87,15 @@ class CitasController extends Controller
     public function editAction(Request $request, Citas $cita)
     {
         $deleteForm = $this->createDeleteForm($cita);
-        $editForm = $this->createForm('ConsultorioBundle\Form\CitasType', $cita);
+        $editForm = $this->createForm('ConsultorioBundle\Form\CitasType', $cita, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('citas_edit', ['id' => $cita->getId()])
+        ]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->get('app.citas')->getEdit($cita);
 
             return $this->redirectToRoute('citas_edit', array('id' => $cita->getId()));
         }
@@ -120,6 +122,7 @@ class CitasController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.citas')->getDelete($cita);
             $em = $this->getDoctrine()->getManager();
             $em->remove($cita);
             $em->flush();

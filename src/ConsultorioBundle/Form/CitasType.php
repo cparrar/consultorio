@@ -4,6 +4,7 @@ namespace ConsultorioBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,8 +16,10 @@ class CitasType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('fechaAt', DateType::class, [
-            'label' => 'Fecha de la Cita'
+        $builder->add('fechaAt', DateTimeType::class, [
+            'label' => 'Fecha de la Cita',
+            'hours' => range(8, 17),
+            'minutes' => ['00']
         ])
             ->add('precio')
             ->add('paciente', EntityType::class, [

@@ -1,47 +1,65 @@
-{% extends 'base.html.twig' %}
+{% extends 'Template/base.html.twig' %}
 
 {% block body %}
-    <h1>Listado de Citas</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Fechaat</th>
-                <th>Precio</th>
-                <th>Estado</th>
-                <th>Fecha Creación</th>
-                <th>Fecha de Actualización</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for cita in citas %}
-            <tr>
-                <td><a href="{{ path('citas_show', { 'id': cita.id }) }}">{{ cita.id }}</a></td>
-                <td>{% if cita.fechaAt %}{{ cita.fechaAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ cita.precio }}</td>
-                <td>{% if cita.isActivo %}ACTIVO{% else %}INACTIVO{% endif %}</td>
-                <td>{% if cita.creadoAt %}{{ cita.creadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if cita.actualizadoAt %}{{ cita.actualizadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('citas_show', { 'id': cita.id }) }}">Mostrar</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('citas_edit', { 'id': cita.id }) }}">Editar</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="col-md-12">
+        <div class="panel panel-default no-bd">
+            <div class="panel-header bg-dark">
+                <h2 class="panel-title"><strong>Listado</strong> de Citas</h2>
+            </div>
+            <div class="panel-body bg-white">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form role="form" class="form-validation" novalidate="novalidate">
+                            <div class="row">
+                                <div class="col-sm-12">
 
-    <ul>
-        <li>
-            <a href="{{ path('citas_new') }}">Crear Nueva Cita</a>
-        </li>
-    </ul>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Fecha Cita</th>
+                                            <th>Precio</th>
+                                            <th>Paciente</th>
+                                            <th>Medico</th>
+                                            <th>Consultorio</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for cita in citas %}
+                                            <tr>
+                                                <td><a href="{{ path('citas_show', { 'id': cita.id }) }}">{{ cita.id }}</a></td>
+                                                <td>{% if cita.fechaAt %}{{ cita.fechaAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                                <td>{{ cita.precio }}</td>
+                                                <td>{{ cita.paciente|title }}</td>
+                                                <td>{{ cita.medico|title }}</td>
+                                                <td>{{ cita.consultorio|title }}</td>
+                                                <td>
+                                                    <a class="btn btn-sm btn-primary" href="{{ path('citas_show', { 'id': cita.id }) }}">Mostrar</a>
+                                                    <a class="btn btn-sm btn-warning" href="{{ path('citas_edit', { 'id': cita.id }) }}">Editar</a>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="7">No hay Citas Registradas</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            {#<div class="text-center  m-t-20">#}
+                            {#<button type="submit" class="btn btn-embossed btn-primary">Sign Up</button>#}
+                            {#<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>#}
+                            {#</div>#}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
