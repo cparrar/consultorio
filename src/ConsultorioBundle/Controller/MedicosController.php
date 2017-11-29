@@ -22,9 +22,7 @@ class MedicosController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $medicos = $em->getRepository('ConsultorioBundle:Medicos')->findAll();
+        $medicos = $this->get('app.medicos')->getIndex();
 
         return $this->render('medicos/index.html.twig', array(
             'medicos' => $medicos,
@@ -42,13 +40,18 @@ class MedicosController extends Controller
     public function newAction(Request $request)
     {
         $medico = new Medicos();
-        $form = $this->createForm('ConsultorioBundle\Form\MedicosType', $medico);
+        $form = $this->createForm('ConsultorioBundle\Form\MedicosType', $medico, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('medicos_new')
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($medico);
             $em->flush();
+
+            $this->get('app.medicos')->getNew($medico);
 
             return $this->redirectToRoute('medicos_show', array('id' => $medico->getId()));
         }
@@ -72,7 +75,7 @@ class MedicosController extends Controller
         $deleteForm = $this->createDeleteForm($medico);
 
         return $this->render('medicos/show.html.twig', array(
-            'medico' => $medico,
+            'medico' => $this->get('app.medicos')->getShow($medico),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -94,6 +97,7 @@ class MedicosController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->get('app.medicos')->getEdit($medico);
 
             return $this->redirectToRoute('medicos_edit', array('id' => $medico->getId()));
         }
@@ -120,6 +124,7 @@ class MedicosController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.medicos')->getDelete($medico);
             $em = $this->getDoctrine()->getManager();
             $em->remove($medico);
             $em->flush();

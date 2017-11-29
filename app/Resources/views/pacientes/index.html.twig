@@ -1,55 +1,67 @@
-{% extends 'base.html.twig' %}
+{% extends 'Template/base.html.twig' %}
 
 {% block body %}
-    <h1>Lista de Pacientes</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Documento</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Fecha Nacimiento</th>
-                <th>Email</th>
-                <th>Direccion</th>
-                <th>Telefono</th>
-                <th>Fecha Creación</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for paciente in pacientes %}
-            <tr>
-                <td><a href="{{ path('paciente_show', { 'id': paciente.id }) }}">{{ paciente.id }}</a></td>
-                <td>{{ paciente.documento }}</td>
-                <td>{{ paciente.nombre }}</td>
-                <td>{{ paciente.apellido }}</td>
-                <td>{% if paciente.nacimientoAt %}{{ paciente.nacimientoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ paciente.email }}</td>
-                <td>{{ paciente.direccion }}</td>
-                <td>{{ paciente.telefono }}</td>
-                <td>{% if paciente.creadoAt %}{{ paciente.creadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if paciente.isActivo %}ACTIVO{% else %}INACTIVO{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('paciente_show', { 'id': paciente.id }) }}">Mostrar</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('paciente_edit', { 'id': paciente.id }) }}">Editar</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="col-md-12">
+        <div class="panel panel-default no-bd">
+            <div class="panel-header bg-dark">
+                <h2 class="panel-title"><strong>Listado</strong> de Especialidades</h2>
+            </div>
+            <div class="panel-body bg-white">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form role="form" class="form-validation" novalidate="novalidate">
+                            <div class="row">
+                                <div class="col-sm-12">
 
-    <ul>
-        <li>
-            <a href="{{ path('paciente_new') }}">Crear un Nuevo paciente</a>
-        </li>
-    </ul>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Documento</th>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
+                                            <th>Fecha Nacimiento</th>
+                                            <th>Email</th>
+                                            <th>Direccion</th>
+                                            <th>Telefono</th>
+                                            <th>Fecha Creación</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for paciente in pacientes %}
+                                            <tr>
+                                                <td><a href="{{ path('paciente_show', { 'id': paciente.id }) }}">{{ paciente.id }}</a></td>
+                                                <td>{{ paciente.documento }}</td>
+                                                <td>{{ paciente.nombre }}</td>
+                                                <td>{{ paciente.apellido }}</td>
+                                                <td>{% if paciente.nacimientoAt %}{{ paciente.nacimientoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                                <td>{{ paciente.email }}</td>
+                                                <td>{{ paciente.direccion }}</td>
+                                                <td>{{ paciente.telefono }}</td>
+                                                <td>{% if paciente.creadoAt %}{{ paciente.creadoAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                                <td>
+                                                    <a class="btn btn-sm btn-primary" href="{{ path('paciente_show', { 'id': paciente.id }) }}">Mostrar</a>
+                                                    <a class="btn btn-sm btn-warning" href="{{ path('paciente_edit', { 'id': paciente.id }) }}">Editar</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            {#<div class="text-center  m-t-20">#}
+                            {#<button type="submit" class="btn btn-embossed btn-primary">Sign Up</button>#}
+                            {#<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>#}
+                            {#</div>#}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

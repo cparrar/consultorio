@@ -36,7 +36,7 @@
         }
 
         /**
-         * Listado de Consultorios
+         * Listado
          *
          * @return array
          */

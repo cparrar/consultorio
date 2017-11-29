@@ -14,11 +14,18 @@
             <li class="{{ app.request.attributes.get('_route') == 'especialidades_new' ? 'active' }}"><a href="{{ path('especialidades_new') }}"> Crear Especialidad</a></li>
         </ul>
     </li>
-    <li class="{{ app.request.attributes.get('_route') in [''] ? 'nav-parent nav-active active' : 'nav-parent' }}">
+    <li class="{{ app.request.attributes.get('_route') in ['medicos_index', 'medicos_new', 'medicos_show', 'medicos_edit'] ? 'nav-parent nav-active active' : 'nav-parent' }}">
         <a href="javascript:;"><i class="icon-puzzle"></i><span>Medicos</span> <span class="fa arrow"></span></a>
         <ul class="children collapse">
-            <li class="{{ app.request.attributes.get('_route') == 'especialidades_index' ? 'active' }}"><a href="{{ path('especialidades_index') }}"> Listado</a></li>
-            <li class="{{ app.request.attributes.get('_route') == 'especialidades_new' ? 'active' }}"><a href="{{ path('especialidades_new') }}"> Crear Especialidad</a></li>
+            <li class="{{ app.request.attributes.get('_route') == 'medicos_index' ? 'active' }}"><a href="{{ path('medicos_index') }}"> Listado</a></li>
+            <li class="{{ app.request.attributes.get('_route') == 'medicos_new' ? 'active' }}"><a href="{{ path('medicos_new') }}"> Crear Medico</a></li>
+        </ul>
+    </li>
+
+    <li class="{{ app.request.attributes.get('_route') in ['paciente_index'] ? 'nav-parent nav-active active' : 'nav-parent' }}">
+        <a href="javascript:;"><i class="icon-puzzle"></i><span>Pacientes</span> <span class="fa arrow"></span></a>
+        <ul class="children collapse">
+            <li class="{{ app.request.attributes.get('_route') == 'paciente_index' ? 'active' }}"><a href="{{ path('paciente_index') }}"> Listado</a></li>
         </ul>
     </li>
 </ul>
